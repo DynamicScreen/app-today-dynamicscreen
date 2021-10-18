@@ -2,30 +2,33 @@
 id: app-today-dynamicscreen
 name: app.name
 description: app.description
-logo: app.logo
+logo: ./resources/img/Donatello.jpeg
 version: 0.2.0
 channel: stable
 api-level: 1
+color: green
 author:
-  name: DynamicScreen
-  email: bonjour@dynamicscreen.com
+    name: DynamicScreen
+    email: bonjour@dynamicscreen.com
 privileges:
-  needs_account:
-    -   identifier: google1
-        type: google
-        why: privileges.needs_account.google.why
-    -   identifier: microsoft1
-        type: microsoft
-        why: privileges.needs_account.microsoft.why
+    needs_account:
+        -   identifier: google1
+            type: google
+            why: privileges.needs_account.google.why
+        -   identifier: microsoft1
+            type: microsoft
+            why: privileges.needs_account.microsoft.why
 modules:
-  - name: Today
-    identifier: today
-    type: slide
-    description: Display current date and time
-    vue:
-      component: src/today/slide/Today.ts
-      options: src/today/TodayOptions.vue
-    php:
-      handler: Vendor\DynamicScreenToday\TodayHandler
-    node:
-      handler: src/handler.js
+    - name: modules.today.name
+      logo: modules.today.logo
+      identifier: today
+      color: #7A00D4
+      type: slide
+      description: modules.today.description
+      vue:
+          component: src/today/slide/Today.ts
+          options: src/today/TodayOptions.vue
+      php:
+          handler: Vendor\DynamicScreenToday\TodayHandler
+      node:
+          handler: src/handler.js

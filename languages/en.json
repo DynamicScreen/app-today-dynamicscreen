@@ -16,9 +16,10 @@
     }
   },
   "modules": {
-    "weather": {
+    "today": {
       "name": "Today",
-      "description": "Display current date and time"
+      "description": "Display current date and time",
+      "logo": "fal fa-clock"
     }
   }
 }

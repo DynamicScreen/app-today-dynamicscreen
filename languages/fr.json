@@ -16,9 +16,10 @@
     }
   },
   "modules": {
-    "weather": {
+    "today": {
       "name": "Today",
-      "description": "Affiche la date du jour et l'heure, sur une magnifique image en fond"
+      "description": "Affiche la date du jour et l'heure, sur une magnifique image en fond",
+      "logo": "fal fa-clock"
     }
   }
 }
