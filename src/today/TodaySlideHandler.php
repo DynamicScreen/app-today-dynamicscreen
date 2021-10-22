@@ -1,6 +1,6 @@
 <?php
 
-namespace Vendor\MyApp;
+namespace DynamicScreen\Today\Today;
 
 
 use DynamicScreen\SdkPhp\Handlers\SlideHandler;

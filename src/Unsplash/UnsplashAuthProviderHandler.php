@@ -1,7 +1,7 @@
 <?php
 
 
-namespace DynamicScreen\Today\TodayAuthProvider;
+namespace DynamicScreen\Today\Unsplash;
 
 use Unsplash\HttpClient as UnsplashClient;
 use Unsplash\Photo;
