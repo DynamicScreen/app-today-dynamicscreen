@@ -19,16 +19,32 @@ privileges:
             type: microsoft
             why: privileges.needs_account.microsoft.why
 modules:
-    - name: modules.today.name
-      logo: modules.today.logo
-      identifier: today
-      color: #7A00D4
-      type: slide
-      description: modules.today.description
-      vue:
-          component: src/today/slide/Today.ts
-          options: src/today/TodayOptions.vue
-      php:
-          handler: Vendor\DynamicScreenToday\TodayHandler
-      node:
-          handler: src/handler.js
+    -   name: modules.today-auth-provider.name
+        logo: modules.today-auth-provider.logo
+        identifier: today-auth-provider
+        color: orange
+        type: auth-provider
+        options:
+            - provider: unsplash
+            - vue:
+                  component: src/today/TodayAuthProvider.ts
+            - php:
+                  handler: Vendor\DynamicScreenToday\TodayAuthProviderHandler
+            - node:
+                  handler: src/handler.js
+        description: modules.today-auth-provider.description
+
+    -   name: modules.today.name
+        logo: modules.today.logo
+        identifier: today
+        color: #7A00D4
+        type: slide
+        description: modules.today.description
+        options:
+            - vue:
+                component: src/today/slide/Today.ts
+                options: src/today/TodayOptions.vue
+            - php:
+                handler: Vendor\DynamicScreenToday\TodayHandler
+            - node:
+                handler: src/handler.js
