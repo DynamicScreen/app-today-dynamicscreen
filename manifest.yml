@@ -25,13 +25,13 @@ modules:
         color: orange
         type: auth-provider
         options:
-            - provider: unsplash
-            - vue:
-                  component: src/today/TodayAuthProvider.ts
-            - php:
-                  handler: Vendor\DynamicScreenToday\TodayAuthProviderHandler
-            - node:
-                  handler: src/handler.js
+            provider: unsplash
+            vue:
+                component: src/today/TodayAuthProvider.ts
+            php:
+                handler: Vendor\DynamicScreenToday\TodayAuthProviderHandler
+            node:
+                handler: src/handler.js
         description: modules.today-auth-provider.description
 
     -   name: modules.today.name
