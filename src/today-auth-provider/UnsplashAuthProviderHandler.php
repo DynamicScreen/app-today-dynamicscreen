@@ -1,12 +1,11 @@
 <?php
 
-namespace Vendor\DynamicScreenToday;
 
+namespace DynamicScreen\Today\AuthProvider;
 
 use Unsplash\HttpClient as UnsplashClient;
 use Unsplash\Photo;
 use DynamicScreen\SdkPhp\Handlers\OAuthProviderHandler;
-use DynamicScreen\SdkPhp\Interfaces\IAccount;
 use Illuminate\Support\Facades\Session;
 
 class UnsplashAuthProviderHandler extends OAuthProviderHandler
