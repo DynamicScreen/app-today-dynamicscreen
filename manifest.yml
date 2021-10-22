@@ -29,7 +29,7 @@ modules:
             vue:
                 component: src/today/TodayAuthProvider.ts
             php:
-                handler: Vendor\DynamicScreenToday\TodayAuthProviderHandler
+                handler: Vendor\DynamicScreenToday\UnsplashAuthProviderHandler
             node:
                 handler: src/handler.js
         description: modules.today-auth-provider.description
@@ -41,10 +41,10 @@ modules:
         type: slide
         description: modules.today.description
         options:
-            - vue:
+            vue:
                 component: src/today/slide/Today.ts
                 options: src/today/TodayOptions.vue
-            - php:
+            php:
                 handler: Vendor\DynamicScreenToday\TodayHandler
-            - node:
+            node:
                 handler: src/handler.js

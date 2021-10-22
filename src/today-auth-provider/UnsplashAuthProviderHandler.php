@@ -1,6 +1,6 @@
 <?php
 
-namespace Vendor\MyApp;
+namespace Vendor\DynamicScreenToday;
 
 
 use Unsplash\HttpClient as UnsplashClient;
