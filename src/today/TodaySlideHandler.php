@@ -2,13 +2,11 @@
 
 namespace DynamicScreen\Today\Today;
 
-
 use App\Domain\Module\Model\Module;
 use Carbon\Carbon;
 use DynamicScreen\SdkPhp\Handlers\SlideHandler;
 use DynamicScreen\SdkPhp\Interfaces\ISlide;
 use Illuminate\Support\Arr;
-use JetBrains\PhpStorm\Pure;
 
 class TodaySlideHandler extends SlideHandler
 {
