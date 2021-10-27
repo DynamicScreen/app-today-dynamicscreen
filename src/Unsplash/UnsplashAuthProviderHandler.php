@@ -3,16 +3,30 @@
 
 namespace DynamicScreen\Today\Unsplash;
 
+use Illuminate\Support\Arr;
 use Unsplash\HttpClient as UnsplashClient;
 use Unsplash\Photo;
 use DynamicScreen\SdkPhp\Handlers\OAuthProviderHandler;
-use Illuminate\Support\Facades\Session;
 
 class UnsplashAuthProviderHandler extends OAuthProviderHandler
 {
+    public static $provider = 'unsplash';
+
+    private $default_config = [];
+
+    public function __construct($config = null)
+    {
+        $this->default_config = $config;
+    }
+
     public function identifier()
     {
-        return 'unsplash';
+        return 'unsplash-official';
+    }
+
+    public function getDriverIdentifier(): string
+    {
+        return self::$provider;
     }
 
     public function name()
@@ -39,53 +53,35 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
         return true;
     }
 
-    public function handleConnection($request)
+    public function signin($callbackUrl)
     {
-//        $ds_uuid = 'oauth.unsplash.' . (string) Str::uuid();
-//        Session::put($ds_uuid,compact('space_name','account_id'));
-        $url_callback = route('api.callback', ['driver_id' => $this->identifier(), 'ds_uuid' => $ds_uuid]);
-        $callbackUrl = route('api.callback', [$app, $module]);
-
-
-        $config = $request->get('config');
-        $this->initConnection($callbackUrl);
-
         $scopes = ['public', 'read_user'];
+        $config = ['callback_url' => $callbackUrl];
+
+        $this->initConnection($config);
 
         return UnsplashClient::$connection->getConnectionUrl($scopes);
     }
 
-    public function signin($space_name, $account_id)
-    {
-        $ds_uuid = 'oauth.unsplash.' . (string) Str::uuid();
-        Session::put($ds_uuid,compact('space_name','account_id'));
-        $url_callback = route('oauth.callback', ['driver_id' => $this->identifier(), 'ds_uuid' => $ds_uuid]);
-
-        $this->initConnection(compact('url_callback'));
-
-        $scopes = ['public', 'read_user'];
-
-        return UnsplashClient::$connection->getConnectionUrl($scopes);
-    }
-
-    public function callback($request, $redirectUrl)
+    public function callback($request, $url = null)
     {
         $code = $request->input('code');
-        $data = $request->all();
+        $redirectUrl = request()->get('redirect_url');
 
-        $callbackUrl = $request->get('callback_url');
+        $this->initConnection(['callback_url' => $url]);
+        $accessToken = UnsplashClient::$connection->generateToken($code);
 
-        $this->initConnection([$callbackUrl]);
+        $data = $this->processOptions($accessToken->jsonSerialize());
 
-        $token = UnsplashClient::$connection->generateToken($code);
+        $dataStr = json_encode($data);
 
-        $data['processed_options'] = $this->processOptions($token->jsonSerialize());
-
-        return $redirectUrl->with('data', compact($data));
+        return redirect()->away($redirectUrl ."&data=$dataStr");
     }
 
-    public function getUserInfos($config)
+    public function getUserInfos($config = null)
     {
+        $config = $config ?? $this->default_config;
+
         $this->initConnection($config);
         $infos = UnsplashClient::$connection->getResourceOwner()->toArray();
         if(isset($infos['errors'])){
@@ -94,26 +90,31 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
         return $infos;
     }
 
-    public function testConnection($config)
+    public function testConnection($config = null)
     {
+        $config = $config ?? $this->default_config;
+
         return $this->getUserInfos($config);
     }
 
-    public function initConnection($config)
+    public function initConnection($config = null)
     {
+        $provider = self::$provider;
+        $config = $config ?? $this->default_config;
+
         if (isset($config['callback_url'])) {
             UnsplashClient::init([
-                'applicationId' => config('unsplash.APP_ID'),
-                'secret' => config('unsplash.SECRET_KEY'),
+                'applicationId' => config("services.$provider.client_id"),
+                'secret' => config("services.$provider.client_secret"),
                 'callbackUrl' => $config['callback_url'],
-                'utmSource' => config('unsplash.APP_NAME')
+                'utmSource' => config("services.$provider.app_name")
             ]);
         }
         else if (isset($config['access_token'])) {
             UnsplashClient::init([
-                'applicationId' => config('unsplash.APP_ID'),
-                'secret' => config('unsplash.SECRET_KEY'),
-                'utmSource' => config('unsplash.APP_NAME')
+                'applicationId' => config("services.$provider.client_id"),
+                'secret' => config("services.$provider.client_secret"),
+                'utmSource' => config("services.$provider.app_name")
             ],[
                 'access_token' => $config['access_token'],
                 'expires_in' => 30000
@@ -121,8 +122,12 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
         }
     }
 
-    public function getRandomPhoto($config, $category)
+    public function getRandomPhoto($options, $config = null)
     {
+        $config = $config ?? $this->default_config;
+
+        $category = Arr::get($options, 'category');
+
         $this->initConnection($config);
         $randPhotos = Photo::random(['query' => $category, 'orientation' => 'landscape']);
         return ['photographer' => $randPhotos->user['name'], 'url' => $randPhotos->urls['raw']];
