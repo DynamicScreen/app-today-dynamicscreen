@@ -15,7 +15,7 @@ class TodaySlideHandler extends SlideHandler
         parent::__construct($module);
     }
 
-    public function fetch(ISlide $slide): array
+    public function fetch(ISlide $slide): void
     {
         $expiration = Carbon::now()->endOfDay();
         $cache_uuid = base64_encode(json_encode($slide->getOption('category')));
@@ -30,11 +30,11 @@ class TodaySlideHandler extends SlideHandler
             return $unsplashDriver->getRandomPhoto($slide->getOption('category'));
         });
 
-        return [
+        $this->addSlide([
             'saint' => $slide->getOption('saint', false),
             'random_photo' => $api_response['url'],
             'author' => $api_response['photographer'],
-        ];
+        ]);
     }
 
     public function getAuthProvider(array $providerCredentialsList)

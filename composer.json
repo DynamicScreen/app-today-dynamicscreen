@@ -1,4 +1,13 @@
 {
+    "name": "dynamicscreen/app-today",
+    "description": "Today app for DynamicScreen SaaS",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DynamicScreen",
+            "email": "bonjour@dynamicscreen.com"
+        }
+    ],
     "require": {
         "unsplash/unsplash": "^3.1"
     },
