@@ -19,7 +19,10 @@
     "today": {
       "name": "Today",
       "description": "Affiche la date du jour et l'heure, sur une magnifique image en fond",
-      "logo": "fal fa-clock"
+    },
+    "unsplash": {
+      "name": "Unsplash",
+      "description": "Permet la connexion entre Unsplash et DynamicScreen pour afficher de la donnée."
     }
   }
 }

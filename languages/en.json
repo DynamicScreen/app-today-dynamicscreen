@@ -20,6 +20,10 @@
       "name": "Today",
       "description": "Display current date and time",
       "logo": "fal fa-clock"
+    },
+    "unsplash": {
+      "name": "Unsplash",
+      "description": "Allow data fetching from Unsplash API."
     }
   }
 }

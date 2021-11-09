@@ -17,7 +17,8 @@ privileges:
             why: privileges.needs_account.unsplash.why
 modules:
     -   name: modules.today-auth-provider.name
-        logo: modules.today-auth-provider.logo
+        logo: fas fa-images
+        description: modules.today-auth-provider.description
         identifier: unsplash-official
         color: orange
         type: auth-provider
@@ -29,10 +30,9 @@ modules:
                 handler: \DynamicScreen\Today\Unsplash\UnsplashAuthProviderHandler
             node:
                 handler: src/handler.js
-        description: modules.today-auth-provider.description
 
     -   name: modules.today.name
-        logo: modules.today.logo
+        logo: fal fa-clock
         identifier: today
         color: #7A00D4
         type: slide

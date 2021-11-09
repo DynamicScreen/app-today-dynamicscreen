@@ -66,16 +66,15 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
     public function callback($request, $url = null)
     {
         $code = $request->input('code');
-        $redirectUrl = request()->get('redirect_url');
 
-        $this->initConnection(['callback_url' => $url]);
+        $this->initConnection(['callback_url' => route('api.oauth.callback')]);
         $accessToken = UnsplashClient::$connection->generateToken($code);
 
         $data = $this->processOptions($accessToken->jsonSerialize());
 
         $dataStr = json_encode($data);
 
-        return redirect()->away($redirectUrl ."&data=$dataStr");
+        return redirect()->away($url ."&data=$dataStr");
     }
 
     public function getUserInfos($config = null)

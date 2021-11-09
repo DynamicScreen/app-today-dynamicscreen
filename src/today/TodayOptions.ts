@@ -1,11 +1,12 @@
 import {
-    BaseContext,
-    AssetDownload,
-    IAssetsStorageAbility,
-    IGuardsManager,
-    ISlideContext,
-    IPublicSlide,
-    SlideModule
+  BaseContext,
+  AssetDownload,
+  IAssetsStorageAbility,
+  IGuardsManager,
+  ISlideContext,
+  IPublicSlide,
+  SlideModule,
+  SlideUpdateFunctions
 } from "dynamicscreen-sdk-js";
 
 import {onMounted, VNode} from 'vue';
@@ -62,57 +63,25 @@ export default class TodayOptionsModule extends SlideModule {
     };
 
     // @ts-ignore
-    setup(props, ctx) {
-        const { h, reactive, ref, Transition } = ctx;
+    setup(props, ctx, update: SlideUpdateFunctions, OptionsContext) {
+      const { h } = ctx;
 
-        const slide = reactive(props.slide) as IPublicSlide;
-        this.context = reactive(props.slide.context);
+      const { Field, FieldsRow, Toggle, ListPicker } = OptionsContext.components
 
-        const city = ref(slide.data.city);
-        const todaySummary = ref(slide.data.today_summary)
-        const forecast = ref(slide.data.forecast)
-
-        this.context.onPrepare(async () => {
-
-        });
-
-        this.context.onReplay(async () => {
-        });
-
-        this.context.onPlay(async () => {
-
-        });
-
-        // this.context.onPause(async () => {
-        //   console.log('Message: onPause')
-        // });
-
-        this.context.onEnded(async () => {
-        });
-
-        return () =>
-            h("div", {
-                class: "flex w-full h-full bg-no-repeat bg-cover",
-                style: { backgroundImage: 'url(\'' + "https://images2.alphacoders.com/100/1003880.png" + '\')'}
-            }, [
-                h("div", {
-                    class: "flex w-full justify-end"
-                }, [
-                    h("div", {
-                        class: "flex h-full flex-col space-y-5 w-3/12 bg-opacity-40 bg-black justify-center items-center text-white backdrop-filter backdrop-blur-md"
-                    }, [
-                        h(Clock),
-                        h("div", {
-                            class: "text-8xl font-medium"
-                        }, "15:40"),
-                        h("div", {
-                            class: "text-4xl"
-                        }, "Wednesday 13 October"),
-                        h("div", {
-                            class: "absolute bottom-5 text-center text-lg"
-                        }, "Picture : Dragon ball z")
-                    ])
-                ])
-            ])
+      return () => [
+        h(Field, { label: "Compte Unsplash" }, [
+          h(ListPicker, {
+            items: { id: '228', name: 'unplash account test' },
+            ...update.option("__accounts") })
+        ]),
+        h(FieldsRow, {}, [
+          h(Toggle, { class: 'flex-1', ...update.option("saint") }, "Saint"),
+          h(Field, { class: 'flex-1', label: "Catégorie" }, [
+            h(ListPicker, {
+              items: ['nature', 'animals', 'culture'],
+              ...update.option("category") })
+          ])
+        ]),
+      ]
     }
 }

@@ -23,7 +23,7 @@ class TodaySlideHandler extends SlideHandler
         $unsplashDriver = $this->getAuthProvider($slide->getOption('accounts' ));
 
         if ($unsplashDriver == null){
-            return [];
+            return ;
         }
 
         $api_response = app('cache')->remember($cache_key, $expiration, function () use ($unsplashDriver, $slide) {
