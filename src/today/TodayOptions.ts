@@ -71,14 +71,20 @@ export default class TodayOptionsModule extends SlideModule {
       return () => [
         h(Field, { label: "Compte Unsplash" }, [
           h(ListPicker, {
-            items: { id: '228', name: 'unplash account test' },
-            ...update.option("__accounts") })
+            items: [{ id: '228', name: 'unplash account test'}],
+            ...update.option("__accounts")
+          })
         ]),
         h(FieldsRow, {}, [
           h(Toggle, { class: 'flex-1', ...update.option("saint") }, "Saint"),
           h(Field, { class: 'flex-1', label: "Catégorie" }, [
             h(ListPicker, {
-              items: ['nature', 'animals', 'culture'],
+              items: [
+                { name: 'nature' },
+                { name: 'animals' },
+                { name: 'culture'},
+              ],
+              keyProp: 'name',
               ...update.option("category") })
           ])
         ]),

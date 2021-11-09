@@ -43,7 +43,7 @@ modules:
                     - unsplash-official
             vue:
                 component: src/Today/Today.ts
-                options: src/Today/TodayOptions.vue
+                options: src/Today/TodayOptions.ts
             php:
                 handler: \DynamicScreen\Today\Today\TodaySlideHandler
             node:
