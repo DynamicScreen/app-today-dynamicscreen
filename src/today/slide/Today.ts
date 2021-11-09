@@ -8,7 +8,7 @@ import {
     SlideModule
 } from "dynamicscreen-sdk-js";
 
-import {onMounted, VNode} from 'vue';
+import {computed, onMounted, VNode} from 'vue';
 import i18next from "i18next";
 import Clock from "./components/Clock";
 
@@ -68,9 +68,19 @@ export default class TodaySlideModule extends SlideModule {
         const slide = reactive(props.slide) as IPublicSlide;
         this.context = reactive(props.slide.context);
 
-        const city = ref(slide.data.city);
-        const todaySummary = ref(slide.data.today_summary)
-        const forecast = ref(slide.data.forecast)
+        let refreshTimeInterval: number | undefined;
+
+        const saint = ref(slide.data.saint);
+        const picture = ref(slide.data.random_photo);
+        const author = ref(slide.data.author);
+
+        const now = ref(new Date());
+        const hours = computed(() => {
+            return now.value.getHours();
+        })
+        const minutes = computed(() => {
+            return now.value.getMinutes();
+        })
 
         this.context.onPrepare(async () => {
 
@@ -80,7 +90,9 @@ export default class TodaySlideModule extends SlideModule {
         });
 
         this.context.onPlay(async () => {
-
+            refreshTimeInterval = window.setInterval(() => {
+                now.value = new Date();
+            }, 1000 * 60);
         });
 
         // this.context.onPause(async () => {
@@ -88,12 +100,13 @@ export default class TodaySlideModule extends SlideModule {
         // });
 
         this.context.onEnded(async () => {
+            if (refreshTimeInterval) { clearInterval(refreshTimeInterval) }
         });
 
         return () =>
             h("div", {
                 class: "flex w-full h-full bg-no-repeat bg-cover",
-                style: { backgroundImage: 'url(\'' + "https://images2.alphacoders.com/100/1003880.png" + '\')'}
+                style: { backgroundImage: `url(${picture.value})`}
             }, [
                 h("div", {
                     class: "flex w-full justify-end"
@@ -101,7 +114,10 @@ export default class TodaySlideModule extends SlideModule {
                     h("div", {
                         class: "flex h-full flex-col space-y-5 w-3/12 bg-opacity-40 bg-black justify-center items-center text-white backdrop-filter backdrop-blur-md"
                     }, [
-                        h(Clock),
+                        h(Clock, {
+                            hours: hours.value,
+                            minutes: minutes.value
+                        }),
                         h("div", {
                             class: "text-8xl font-medium"
                         }, "15:40"),
@@ -110,7 +126,7 @@ export default class TodaySlideModule extends SlideModule {
                         }, "Wednesday 13 October"),
                         h("div", {
                             class: "absolute bottom-5 text-center text-lg"
-                        }, "Picture : Dragon ball z")
+                        }, `Pictur by : ${author.value}`)
                     ])
                 ])
             ])

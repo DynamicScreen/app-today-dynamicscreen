@@ -1,11 +1,18 @@
-import {defineComponent, h} from "vue";
+import {defineComponent, h, toRef} from "vue";
 import Hand from "./Hand";
 
 export default defineComponent({
-    setup() {
+    props: {
+        hours: { type: Number, required: true },
+        minutes: { type: Number, required: true }
+    },
+    setup(props) {
 
-        const hoursAngle = 180 + (15 * 360) / 12;
-        const minutesAngle = 180 + (40 * 360) / 60;
+        const hours = toRef(props, "hours");
+        const minutes = toRef(props, "minutes");
+
+        const hoursAngle = 180 + (hours.value * 360) / 12;
+        const minutesAngle = 180 + (minutes.value * 360) / 60;
 
         return () =>
             h("div", {
