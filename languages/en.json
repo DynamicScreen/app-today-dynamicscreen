@@ -18,7 +18,7 @@
   "modules": {
     "today": {
       "name": "Today",
-      "description": "Display current date and time",
+      "description": "Display current date and time"
     },
     "unsplash-official": {
       "name": "Unsplash",
