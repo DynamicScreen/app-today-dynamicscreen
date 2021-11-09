@@ -1,0 +1,33 @@
+{
+    "name": "dynamicscreen/app-today",
+    "description": "Today app for DynamicScreen SaaS",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DynamicScreen",
+            "email": "bonjour@dynamicscreen.com"
+        }
+    ],
+    "require": {
+        "unsplash/unsplash": "^3.1"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./../../../../dynamicscreen/sdk-php",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DynamicScreen\\Today\\": "src/"
+        }
+    }
+}
