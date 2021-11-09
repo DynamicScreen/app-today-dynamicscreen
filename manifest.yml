@@ -25,7 +25,7 @@ modules:
         options:
             provider: unsplash
             vue:
-                component: src/Today/TodayAuthProvider.ts
+                component: src/Unsplash/TodayAuthProvider.ts
             php:
                 handler: \DynamicScreen\Today\Unsplash\UnsplashAuthProviderHandler
             node:
