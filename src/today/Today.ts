@@ -10,10 +10,10 @@ import {
 
 import {computed, onMounted, VNode} from 'vue';
 import i18next from "i18next";
-import Clock from "../components/Clock";
+import Clock from "../Components/Clock";
 
-const en = require("../../../languages/en.json");
-const fr = require("../../../languages/fr.json");
+const en = require("../../languages/en.json");
+const fr = require("../../languages/fr.json");
 
 export default class TodaySlideModule extends SlideModule {
     constructor(context: ISlideContext) {

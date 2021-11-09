@@ -9,9 +9,7 @@ import {
   SlideUpdateFunctions
 } from "dynamicscreen-sdk-js";
 
-import {onMounted, VNode} from 'vue';
 import i18next from "i18next";
-import Clock from "../components/Clock";
 
 const en = require("../../../languages/en.json");
 const fr = require("../../../languages/fr.json");
