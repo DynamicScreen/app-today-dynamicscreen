@@ -16,9 +16,9 @@ privileges:
             type: unsplash
             why: privileges.needs_account.unsplash.why
 modules:
-    -   name: modules.today-auth-provider.name
+    -   name: modules.unsplash-official.name
         logo: fas fa-images
-        description: modules.today-auth-provider.description
+        description: modules.unsplash-official.description
         identifier: unsplash-official
         color: orange
         type: auth-provider
