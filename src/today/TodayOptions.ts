@@ -11,8 +11,8 @@ import {
 
 import i18next from "i18next";
 
-const en = require("../../../languages/en.json");
-const fr = require("../../../languages/fr.json");
+const en = require("../../languages/en.json");
+const fr = require("../../languages/fr.json");
 
 export default class TodayOptionsModule extends SlideModule {
     constructor(context: ISlideContext) {
