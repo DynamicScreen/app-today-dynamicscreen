@@ -62,21 +62,25 @@ export default class TodayOptionsModule extends SlideModule {
 
     // @ts-ignore
     setup(props, ctx, update: SlideUpdateFunctions, OptionsContext) {
-      const { h } = ctx;
+      const { h, ref, reactive } = ctx;
 
-      const { Field, FieldsRow, Toggle, ListPicker } = OptionsContext.components
+      const slide = reactive(props.slide) as IPublicSlide;
 
+      const accountsList = ref(slide.data.accounts);
+
+
+      const { Field, FieldsRow, Toggle, Select } = OptionsContext.components
+      const account = { id: '228', icon: 'fas fa-image', name: 'unplash account test' };
       return () => [
-        h(Field, { label: "Compte Unsplash" }, [
-          h(ListPicker, {
-            items: [{ id: '228', name: 'unplash account test'}],
-            ...update.option("__accounts")
-          })
-        ]),
         h(FieldsRow, {}, [
-          h(Toggle, { class: 'flex-1', ...update.option("saint") }, "Saint"),
+          h(Field, { label: "Compte Unsplash" }, [
+            h(Select, {
+              items: [account],
+              ...update.option("__accounts")
+            })
+          ]),
           h(Field, { class: 'flex-1', label: "Catégorie" }, [
-            h(ListPicker, {
+            h(Select, {
               items: [
                 { name: 'nature' },
                 { name: 'animals' },
@@ -86,6 +90,8 @@ export default class TodayOptionsModule extends SlideModule {
               ...update.option("category") })
           ])
         ]),
+        h(Toggle, { class: 'flex-1', ...update.option("saint") }, "Saint"),
+
       ]
     }
 }
