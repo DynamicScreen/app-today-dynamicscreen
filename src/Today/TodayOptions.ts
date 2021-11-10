@@ -64,34 +64,35 @@ export default class TodayOptionsModule extends SlideModule {
     setup(props, ctx, update: SlideUpdateFunctions, OptionsContext) {
       const { h, ref, reactive } = ctx;
 
-      const slide = reactive(props.slide) as IPublicSlide;
+      // const slide = reactive(props.slide) as IPublicSlide;
 
-      const accountsList = ref(slide.data.accounts);
+      // const accountsList = ref(slide.data.accounts);
 
 
       const { Field, FieldsRow, Toggle, Select } = OptionsContext.components
       const account = { id: '228', icon: 'fas fa-image', name: 'unplash account test' };
       return () => [
         h(FieldsRow, {}, [
-          h(Field, { label: "Compte Unsplash" }, [
+          h(Field, { class: 'flex-1', label: "Compte Unsplash" }, [
             h(Select, {
-              items: [account],
+              options: [account],
+              placeholder: "Choisissez un compte",
               ...update.option("__accounts")
-            })
+            }),
           ]),
           h(Field, { class: 'flex-1', label: "Catégorie" }, [
             h(Select, {
-              items: [
+              options: [
                 { name: 'nature' },
                 { name: 'animals' },
                 { name: 'culture'},
               ],
+              placeholder: "Choisissez une catégorie",
               keyProp: 'name',
               ...update.option("category") })
-          ])
+          ]),
         ]),
-        h(Toggle, { class: 'flex-1', ...update.option("saint") }, "Saint"),
-
+        h(Toggle, { class: 'flex-1', ...update.option("saint") }, "Affiche le saint du jour."),
       ]
     }
 }
