@@ -20,9 +20,9 @@ class TodaySlideHandler extends SlideHandler
         $expiration = Carbon::now()->endOfDay();
         $cache_uuid = base64_encode(json_encode($slide->getOption('category')));
         $cache_key = $this->getIdentifier() ."_{$cache_uuid}";
-        $unsplashDriver = $this->getAuthProvider($slide->getOption('accounts' ));
+        $unsplashDriver = $this->getAuthProvider($slide->getAccounts());
 
-        if ($unsplashDriver == null){
+        if ($unsplashDriver == null) {
             return ;
         }
 
@@ -48,7 +48,7 @@ class TodaySlideHandler extends SlideHandler
         $modules = $this->app()->modules->where('type', 'auth-provider');
         $mod = Arr::first($modules, fn ($key, $value) => Arr::get($key, 'identifier') === $authProviderIdentifier);
 
-        $config = Arr::first($providerCredentialsList, fn ($credential, $provider) => $provider === $mod->identifier);
+        $config = Arr::first($providerCredentialsList, fn ($credentials, $provider) => $provider === $mod->identifier);
 
         return $mod->getHandler($config);
     }
