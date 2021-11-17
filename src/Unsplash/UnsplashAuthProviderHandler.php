@@ -10,7 +10,7 @@ use DynamicScreen\SdkPhp\Handlers\OAuthProviderHandler;
 
 class UnsplashAuthProviderHandler extends OAuthProviderHandler
 {
-    public static $provider = 'unsplash';
+    public static string $provider = 'unsplash';
 
     private $default_config = [];
 
@@ -22,11 +22,6 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
     public function identifier()
     {
         return 'unsplash-official';
-    }
-
-    public function getDriverIdentifier(): string
-    {
-        return self::$provider;
     }
 
     public function name()
@@ -53,8 +48,9 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
         return true;
     }
 
-    public function signin($callbackUrl)
+    public function signin($callbackUrl = null)
     {
+        $callbackUrl = $callbackUrl ?? route('api.oauth.callback');
         $scopes = ['public', 'read_user'];
         $config = ['callback_url' => $callbackUrl];
 
@@ -63,7 +59,7 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
         return UnsplashClient::$connection->getConnectionUrl($scopes);
     }
 
-    public function callback($request, $url = null)
+    public function callback($request, $redirectUrl = null)
     {
         $code = $request->input('code');
 
@@ -74,7 +70,7 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
 
         $dataStr = json_encode($data);
 
-        return redirect()->away($url ."&data=$dataStr");
+        return redirect()->away($redirectUrl ."&data=$dataStr");
     }
 
     public function getUserInfos($config = null)
@@ -98,7 +94,7 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
 
     public function initConnection($config = null)
     {
-        $provider = self::$provider;
+        $provider = $this->getProviderIdentifier();
         $config = $config ?? $this->default_config;
 
         if (isset($config['callback_url'])) {

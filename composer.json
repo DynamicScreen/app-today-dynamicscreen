@@ -16,15 +16,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./../../../../dynamicscreen/sdk-php",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "autoload": {
         "psr-4": {
             "DynamicScreen\\Today\\": "src/"
