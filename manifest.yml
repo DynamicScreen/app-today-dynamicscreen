@@ -2,7 +2,7 @@
 id: app-today-dynamicscreen
 name: app.name
 description: app.description
-logo: ./resources/img/Donatello.jpeg
+logo: app.logo
 version: 0.2.0
 channel: stable
 api-level: 1
@@ -34,7 +34,7 @@ modules:
     -   name: modules.today.name
         logo: fal fa-clock
         identifier: today
-        color: #7A00D4
+        color: yellow
         type: slide
         description: modules.today.description
         options:

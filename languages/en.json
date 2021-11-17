@@ -2,6 +2,7 @@
   "app": {
     "name": "Today",
     "description": "Display current date and time",
+    "logo": "fal fa-clock",
     "author": {
       "name": "DynamicScreen",
       "email": "bonjour@dynamicscreen.com",
