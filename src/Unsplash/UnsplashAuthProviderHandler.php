@@ -10,7 +10,7 @@ use DynamicScreen\SdkPhp\Handlers\OAuthProviderHandler;
 
 class UnsplashAuthProviderHandler extends OAuthProviderHandler
 {
-    public static string $provider = 'unsplash';
+    protected static string $provider = 'unsplash';
 
     private $default_config = [];
 
