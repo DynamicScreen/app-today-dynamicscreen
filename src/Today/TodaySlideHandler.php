@@ -10,10 +10,6 @@ use Illuminate\Support\Arr;
 
 class TodaySlideHandler extends SlideHandler
 {
-    public function __construct(Module $module)
-    {
-        parent::__construct($module);
-    }
 
     public function fetch(ISlide $slide): void
     {
@@ -35,22 +31,6 @@ class TodaySlideHandler extends SlideHandler
             'random_photo' => $api_response['url'],
             'author' => $api_response['photographer'],
         ]);
-    }
-
-    public function getAuthProvider(array $providerCredentialsList)
-    {
-        $authProviderIdentifier = $this->needed_accounts();
-
-        if (is_array($authProviderIdentifier)) {
-            $authProviderIdentifier = Arr::first($authProviderIdentifier);
-        }
-
-        $modules = $this->app()->modules->where('type', 'auth-provider');
-        $mod = Arr::first($modules, fn ($key, $value) => Arr::get($key, 'identifier') === $authProviderIdentifier);
-
-        $config = Arr::first($providerCredentialsList, fn ($credentials, $provider) => $provider === $mod->identifier);
-
-        return $mod->getHandler($config);
     }
 
     public function needed_accounts()
