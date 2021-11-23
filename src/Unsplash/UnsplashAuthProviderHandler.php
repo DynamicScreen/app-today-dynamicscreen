@@ -117,6 +117,12 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
         }
     }
 
+//    Used for poc
+    public function provideData()
+    {
+        $this->addData('me', fn () => $this->getUserInfos());
+    }
+
     public function getRandomPhoto($options, $config = null)
     {
         $config = $config ?? $this->default_config;
