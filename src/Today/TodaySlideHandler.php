@@ -13,15 +13,15 @@ class TodaySlideHandler extends SlideHandler
     {
         $expiration = Carbon::now()->endOfDay();
         $cache_uuid = base64_encode(json_encode($slide->getOption('category')));
-        $cache_key = $this->getIdentifier() ."_{$cache_uuid}";
-        $unsplashDriver = $this->getAuthProvider($slide->getAccounts());
+        $driver = $this->getAuthProvider($slide->getAccounts());
 
-        if ($unsplashDriver == null) {
+        if ($driver == null) {
             return ;
         }
 
-        $api_response = app('cache')->remember($cache_key, $expiration, function () use ($unsplashDriver, $slide) {
-            return $unsplashDriver->getRandomPhoto($slide->getOption('category'));
+        $cache_key = $driver->getProviderIdentifier() ."_{$cache_uuid}";
+        $api_response = app('cache')->remember($cache_key, $expiration, function () use ($driver, $slide) {
+            return $driver->getRandomPhoto($slide->getOption('category'));
         });
 
         $this->addSlide([

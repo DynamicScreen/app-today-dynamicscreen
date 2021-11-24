@@ -118,7 +118,7 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
     }
 
 //    Used for poc
-    public function provideData()
+    public function provideData($settings = [])
     {
         $this->addData('me', fn () => $this->getUserInfos());
     }
