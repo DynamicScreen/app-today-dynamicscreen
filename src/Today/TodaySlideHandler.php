@@ -30,9 +30,4 @@ class TodaySlideHandler extends SlideHandler
             'author' => $api_response['photographer'],
         ]);
     }
-
-    public function needed_accounts()
-    {
-        return $this->module->getOption('privileges.needs_account', false);
-    }
 }
