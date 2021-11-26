@@ -2,7 +2,7 @@
 id: app-today-dynamicscreen
 name: app.name
 description: app.description
-logo: app.logo
+logo: fa fa-clock
 version: 0.2.0
 channel: stable
 api-level: 1
