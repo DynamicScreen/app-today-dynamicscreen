@@ -17,7 +17,7 @@ privileges:
             why: privileges.needs_account.unsplash.why
 modules:
     -   name: modules.unsplash-official.name
-        logo: fas fa-images
+        logo: fa fa-clock
         description: modules.unsplash-official.description
         identifier: unsplash-official
         color: orange
@@ -32,7 +32,7 @@ modules:
                 handler: src/handler.js
 
     -   name: modules.today.name
-        logo: fal fa-clock
+        logo: fa fa-clock
         identifier: today
         color: yellow
         type: slide
