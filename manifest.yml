@@ -6,7 +6,7 @@ logo: fa fa-clock
 version: 0.2.0
 channel: stable
 api-level: 1
-color: yellow
+color: green
 author:
     name: DynamicScreen
     email: bonjour@dynamicscreen.com
@@ -20,7 +20,7 @@ modules:
         logo: fa fa-clock
         description: modules.unsplash-official.description
         identifier: unsplash-official
-        color: blue
+        color: red
         type: auth-provider
         options:
             provider: unsplash
@@ -34,7 +34,7 @@ modules:
     -   name: modules.today.name
         logo: fa fa-clock
         identifier: today
-        color: yellow
+        color: pink
         type: slide
         description: modules.today.description
         options:
