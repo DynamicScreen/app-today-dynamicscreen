@@ -20,7 +20,7 @@ modules:
         logo: fa fa-clock
         description: modules.unsplash-official.description
         identifier: unsplash-official
-        color: orange
+        color: blue
         type: auth-provider
         options:
             provider: unsplash

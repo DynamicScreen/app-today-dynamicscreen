@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Today",
+    "name": "Éphéméride",
     "description": "Affiche la date du jour et l'heure, sur une magnifique image en fond",
     "logo": "fal fa-clock",
     "author": {
