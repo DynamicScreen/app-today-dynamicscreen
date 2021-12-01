@@ -6,13 +6,12 @@
     "author": {
       "name": "DynamicScreen",
       "email": "bonjour@dynamicscreen.com",
-      "note": "Written with love <3 Buy me a cofee @ itsajoke.com !"
     }
   },
   "privileges": {
     "needs_account": {
-      "google": {
-        "why": "Because it's required... :'("
+      "unsplash": {
+        "why": "We use the unsplash account to fetch live data for the current day"
       }
     }
   },
