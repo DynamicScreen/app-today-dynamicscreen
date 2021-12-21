@@ -1,4 +1,4 @@
-import {defineComponent, h, toRef} from "vue";
+import {defineComponent, h, toRef} from "vue"
 import Hand from "./Hand";
 
 export default defineComponent({

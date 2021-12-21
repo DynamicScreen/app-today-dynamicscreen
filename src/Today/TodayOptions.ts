@@ -1,14 +1,10 @@
 import {
+  ISlideOptionsContext,
   SlideOptionsModule,
   VueInstance,
-  ISlideOptionsContext,
-} from "dynamicscreen-sdk-js";
+} from "dynamicscreen-sdk-js"
 
 export default class TodayOptionsModule extends SlideOptionsModule {
-  constructor(context: ISlideOptionsContext) {
-    super(context);
-  }
-
   async onReady() {
     return true;
   };
@@ -16,29 +12,27 @@ export default class TodayOptionsModule extends SlideOptionsModule {
   setup(props: Record<string, any>, vue: VueInstance, context: ISlideOptionsContext) {
     const { h, ref, reactive } = vue;
 
-
     let isAccountDataLoaded = ref(false)
-    let account = reactive({});
+    let account: any = reactive({});
 
-    this.context?.getAccountData("unsplash", "me", {
-      onChange: () => {
-        // isAccountDataLoaded.value = typeof accountId !== "undefined";
-        console.log('onchange account')
-        // account.value = {};
+    this.context.getAccountData?.("unsplash", "me", {
+      onChange: (accountId: number | undefined) => {
+        isAccountDataLoaded.value = typeof accountId !== "undefined";
+        console.log('onchange account', accountId)
+        account = {};
       }
     }, { another: 'parameters' })
-      .value
-      .then((acc: any) => {
+      .value?.then((acc: any) => {
         isAccountDataLoaded.value = true;
-        account.value = acc;
+        account = acc;
         console.log('account data successfully fetched', account)
       });
 
-    const update = context.update;
-    const { Field, Toggle, Select } = context.components;
+    const update = this.context.update;
+    const { Field, Toggle, Select } = this.context.components;
 
     return () => [
-      h(isAccountDataLoaded.value && Field, { label: "Nom du compte (live fetching)" }, () => account.value.name),
+      h(isAccountDataLoaded.value && Field, { label: "Nom du compte (live fetching)" }, () => account.name),
       h(Field, { class: 'flex-1', label: this.t('modules.today.options.category.label') }, () => [
         h(Select, {
           options: [

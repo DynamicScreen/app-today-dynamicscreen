@@ -12,7 +12,7 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
 {
     protected static string $provider = 'unsplash';
 
-    private $default_config = [];
+    protected $default_config = [];
 
     public function __construct($config = null)
     {
