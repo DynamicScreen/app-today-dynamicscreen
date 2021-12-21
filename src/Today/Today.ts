@@ -1,72 +1,24 @@
 import {
-    BaseContext,
-    AssetDownload,
-    IAssetsStorageAbility,
-    IGuardsManager,
-    ISlideContext,
-    IPublicSlide,
-    SlideModule
+  ISlideContext,
+  IPublicSlide,
+  SlideModule, VueInstance
 } from "dynamicscreen-sdk-js";
 
-import {computed, onMounted, VNode} from 'vue';
-import i18next from "i18next";
 import Clock from "../Components/Clock";
-
-const en = require("../../languages/en.json");
-const fr = require("../../languages/fr.json");
 
 export default class TodaySlideModule extends SlideModule {
     constructor(context: ISlideContext) {
         super(context);
     }
 
-    trans(key: string) {
-        return i18next.t(key);
-    };
-
     async onReady() {
         return true;
     };
 
-    onMounted() {
-        console.log('onMounted')
-    }
+    setup(props: Record<string, any>, vue: VueInstance, context: ISlideContext) {
+        const { h, reactive, ref, computed } = vue;
 
-    //@ts-ignore
-    onErrorTracked(err: Error, instance: Component, info: string) {
-    }
-
-    //@ts-ignore
-    onRenderTriggered(e) {
-    }
-
-    //@ts-ignore
-    onRenderTracked(e) {
-    }
-
-    onUpdated() {
-    }
-
-    initI18n() {
-        i18next.init({
-            fallbackLng: 'en',
-            lng: 'fr',
-            resources: {
-                en: { translation: en },
-                fr: { translation: fr },
-            },
-            debug: true,
-        }, (err, t) => {
-            if (err) return console.log('something went wrong loading translations', err);
-        });
-    };
-
-    // @ts-ignore
-    setup(props, ctx) {
-        const { h, reactive, ref, Transition } = ctx;
-
-        const slide = reactive(props.slide) as IPublicSlide;
-        this.context = reactive(props.slide.context);
+        const slide = reactive(this.context.slide) as IPublicSlide;
 
         let refreshTimeInterval: number | undefined;
 
@@ -95,10 +47,6 @@ export default class TodaySlideModule extends SlideModule {
             }, 1000 * 60);
         });
 
-        // this.context.onPause(async () => {
-        //   console.log('Message: onPause')
-        // });
-
         this.context.onEnded(async () => {
             if (refreshTimeInterval) { clearInterval(refreshTimeInterval) }
         });
@@ -126,7 +74,7 @@ export default class TodaySlideModule extends SlideModule {
                         }, "Wednesday 13 October"),
                         h("div", {
                             class: "absolute bottom-5 text-center text-lg"
-                        }, `Pictur by : ${author.value}`)
+                        }, `${this.t('modules.today.slide.picture_by')} : ${author.value}`)
                     ])
                 ])
             ])

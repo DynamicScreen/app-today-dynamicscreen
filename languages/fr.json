@@ -18,7 +18,19 @@
   "modules": {
     "today": {
       "name": "Today",
-      "description": "Affiche la date du jour et l'heure, sur une magnifique image en fond"
+      "description": "Affiche la date du jour et l'heure, sur une magnifique image en fond",
+      "options": {
+        "categories": {
+          "animals": "Animaux",
+          "culture": "Culture",
+          "nature": "Nature"
+        },
+        "category": {
+          "label": "Catégorie",
+          "placeholder": "Sélectionnez une catégorie..."
+        },
+        "display_saint": "Affiche le saint du jour"
+      }
     },
     "unsplash-official": {
       "name": "Unsplash",

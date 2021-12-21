@@ -18,7 +18,19 @@
   "modules": {
     "today": {
       "name": "Today",
-      "description": "Display current date and time"
+      "description": "Display current date and time",
+      "options": {
+        "categories": {
+          "animals": "Animals",
+          "culture": "Culture",
+          "nature": "Nature"
+        },
+        "category": {
+          "label": "Category",
+          "placeholder": "Select a category..."
+        },
+        "display_saint": "Display the saint of the day"
+      }
     },
     "unsplash-official": {
       "name": "Unsplash",
