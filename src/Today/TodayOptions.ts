@@ -19,12 +19,14 @@ export default class TodayOptionsModule extends SlideOptionsModule {
       onChange: (accountId: number | undefined) => {
         isAccountDataLoaded.value = typeof accountId !== "undefined";
         console.log('onchange account', accountId)
-        account = {};
+        if (accountId === undefined) {
+          account.value = {};
+        }
       }
-    }, { another: 'parameters' })
+    }, { today_extra: 'today custom data here' })
       .value?.then((acc: any) => {
         isAccountDataLoaded.value = true;
-        account = acc;
+        account.value = acc;
         console.log('account data successfully fetched', account)
       });
 
@@ -32,7 +34,7 @@ export default class TodayOptionsModule extends SlideOptionsModule {
     const { Field, Toggle, Select } = this.context.components;
 
     return () => [
-      h(isAccountDataLoaded.value && Field, { label: "Nom du compte (live fetching)" }, () => account.name),
+      h(isAccountDataLoaded.value && Field, { label: "Nom du compte (live fetching)" }, () => account.value.name),
       h(Field, { class: 'flex-1', label: this.t('modules.today.options.category.label') }, () => [
         h(Select, {
           options: [

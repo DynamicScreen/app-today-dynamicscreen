@@ -3,6 +3,7 @@
 
 namespace DynamicScreen\Today\Unsplash;
 
+use DynamicScreen\SdkPhp\Interfaces\IModule;
 use Illuminate\Support\Arr;
 use Unsplash\HttpClient as UnsplashClient;
 use Unsplash\Photo;
@@ -12,40 +13,9 @@ class UnsplashAuthProviderHandler extends OAuthProviderHandler
 {
     protected static string $provider = 'unsplash';
 
-    protected $default_config = [];
-
-    public function __construct($config = null)
+    public function __construct(IModule $module, $config = null)
     {
-        $this->default_config = $config;
-    }
-
-    public function identifier()
-    {
-        return 'unsplash-official';
-    }
-
-    public function name()
-    {
-        return "Unsplash";
-    }
-
-    public function description()
-    {
-        return "Photos";
-    }
-
-    public function icon()
-    {
-        return "fas fa-images";
-    }
-
-    public function color(){
-        return '#239d00';
-    }
-
-    public function isSafeToBePublic()
-    {
-        return true;
+        parent::__construct($module, $config);
     }
 
     public function signin($callbackUrl = null)

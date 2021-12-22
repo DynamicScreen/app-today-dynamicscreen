@@ -19,9 +19,10 @@ class TodaySlideHandler extends SlideHandler
             return ;
         }
 
-        $cache_key = $driver->getProviderIdentifier() ."_{$cache_uuid}";
-        $api_response = app('cache')->remember($cache_key, $expiration, function () use ($driver, $slide) {
-            return $driver->getRandomPhoto($slide->getOption('category'));
+        $category = $slide->getOption('category');
+        $cache_key = $driver->getProviderIdentifier() ."_{$cache_uuid}_$category";
+        $api_response = app('cache')->remember($cache_key, $expiration, function () use ($driver, $category) {
+            return $driver->getRandomPhoto($category);
         });
 
         $this->addSlide([
