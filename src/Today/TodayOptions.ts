@@ -15,7 +15,7 @@ export default class TodayOptionsModule extends SlideOptionsModule {
     let isAccountDataLoaded = ref(false)
     let account: any = reactive({});
 
-    this.context.getAccountData?.("unsplash", "me", {
+    this.context.getAccountData?.("unsplash-official", "me", {
       onChange: (accountId: number | undefined) => {
         isAccountDataLoaded.value = typeof accountId !== "undefined";
         console.log('onchange account', accountId)
