@@ -30,6 +30,9 @@
           "placeholder": "Sélectionnez une catégorie..."
         },
         "display_saint": "Affiche le saint du jour"
+      },
+      "slide": {
+        "picture_by": "Photo de"
       }
     },
     "unsplash-official": {

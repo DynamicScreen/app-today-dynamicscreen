@@ -17,13 +17,16 @@ export default class TodayOptionsModule extends SlideOptionsModule {
 
     this.context.getAccountData?.("unsplash-official", "me", {
       onChange: (accountId: number | undefined) => {
-        isAccountDataLoaded.value = typeof accountId !== "undefined";
+        if (typeof accountId === "undefined") {
+          isAccountDataLoaded.value = false
+      }
         console.log('onchange account', accountId)
         if (accountId === undefined) {
           account.value = {};
         }
-      }
-    }, { today_extra: 'today custom data here' })
+      },
+      extra: { name: 'value' }
+    })
       .value?.then((acc: any) => {
         isAccountDataLoaded.value = true;
         account.value = acc;
@@ -38,12 +41,13 @@ export default class TodayOptionsModule extends SlideOptionsModule {
       h(Field, { class: 'flex-1', label: this.t('modules.today.options.category.label') }, () => [
         h(Select, {
           options: [
-            {name: this.t('modules.today.options.categories.nature')},
-            {name: this.t('modules.today.options.categories.animals')},
-            {name: this.t('modules.today.options.categories.culture')},
+            {name: this.t('modules.today.options.categories.nature'), key: 'nature'},
+            {name: this.t('modules.today.options.categories.animals'), key: 'animals'},
+            {name: this.t('modules.today.options.categories.culture'), key: 'culture'},
           ],
           placeholder: this.t('modules.today.options.category.select_placeholder'),
-          keyProp: 'name',
+          keyProp: 'key',
+          valueProp: 'name',
           ...update.option("category")
         })
       ]),

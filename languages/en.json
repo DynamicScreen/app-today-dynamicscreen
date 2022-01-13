@@ -30,6 +30,9 @@
           "placeholder": "Select a category..."
         },
         "display_saint": "Display the saint of the day"
+      },
+      "slide": {
+        "picture_by": "Picture by"
       }
     },
     "unsplash-official": {
