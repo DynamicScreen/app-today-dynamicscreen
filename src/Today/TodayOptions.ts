@@ -24,13 +24,15 @@ export default class TodayOptionsModule extends SlideOptionsModule {
         if (accountId === undefined) {
           account.value = {};
         }
-      },
-      extra: { name: 'value' }
+      }
     })
       .value?.then((acc: any) => {
         isAccountDataLoaded.value = true;
         account.value = acc;
         console.log('account data successfully fetched', account)
+      }).catch((err) => {
+        console.log('error while fetching account data: ', err)
+        isAccountDataLoaded.value = false;
       });
 
     const update = this.context.update;

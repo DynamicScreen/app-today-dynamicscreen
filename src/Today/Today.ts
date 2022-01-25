@@ -77,7 +77,7 @@ export default class TodaySlideModule extends SlideModule {
               class: "text-8xl font-medium"
             }, "15:40"),
             h("div", {
-              class: "text-4xl"
+              class: "text-center text-4xl"
             }, "Wednesday 13 October"),
             h("div", {
               class: "absolute bottom-5 text-center text-lg"
